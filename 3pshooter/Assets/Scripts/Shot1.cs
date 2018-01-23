@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Shot1 : MonoBehaviour
 {
-    private LineRenderer laserline;
-    private  WaitForSeconds shotDuration= new WaitForSeconds(0.7f);
+    public LineRenderer laserline;
+    public  WaitForSeconds shotDuration= new WaitForSeconds(0.07f);
     public Transform gunEnd;
     public Transform aimer;
     public float range =50f;
@@ -13,7 +13,7 @@ public class Shot1 : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-	  
+        GetComponent<LineRenderer>();
 	}
 	
 	// Update is called once per frame
@@ -21,10 +21,15 @@ public class Shot1 : MonoBehaviour
 	    if (Input.GetButtonDown("Fire1"))
 
 	    {
+            if (laserline == null)
+            {
+                Debug.Log("No Laserline");
+            }
+            Vector2 endOfLaserLine = Shot();
             laserline.SetPosition(0,gunEnd.position);
-	        laserline.SetPosition(1, aimer.position);
+	        laserline.SetPosition(1, endOfLaserLine);
             StartCoroutine(ShotEffect());
-	        Shot();
+	        
 	    }
 	}
 
@@ -35,13 +40,34 @@ public class Shot1 : MonoBehaviour
         laserline.enabled = false;
     }
 
-    void Shot()
+    Vector2 Shot()
     {
-        RaycastHit hit;
-      if  (Physics.Raycast(gunEnd.transform.position, aimer.transform.forward, out hit, range))
+        
+     
+        RaycastHit2D hit = Physics2D.Raycast(gunEnd.transform.position, aimer.position - gunEnd.position);
+      if  (hit != null)
         {
-            Debug.Log("YYYYYYYEEEEEEESSSSS");
-            
+           
+            if(hit.collider != null)
+            {
+                if (hit.collider.gameObject.tag == "Enemy")
+                {
+                   Enemy enemy = hit.transform.GetComponent<Enemy>();
+                    if (enemy != null)
+                    {
+                        enemy.TakeDamage(damage);
+
+                    }
+
+                    return hit.point;
+                } else
+                {
+                    return hit.point;
+                }
+            }
+
+
         }
+        return aimer.position;
     }
 }
