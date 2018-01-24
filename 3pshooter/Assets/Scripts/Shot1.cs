@@ -10,13 +10,13 @@ public class Shot1 : MonoBehaviour
     public Transform aimer;
     public float range =50f;
     public float damage = 10f;
-	// Use this for initialization
+
 	void Start ()
 	{
         GetComponent<LineRenderer>();
 	}
 	
-	// Update is called once per frame
+
 	void Update () {
 	    if (Input.GetButtonDown("Fire1"))
 

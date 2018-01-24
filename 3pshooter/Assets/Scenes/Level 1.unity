@@ -215,7 +215,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.0001
+  m_Mass: 0.55854493
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
@@ -235,7 +235,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5065082d20131b84d9fac80f416d37fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 50
+  health: 30
+  enemyHits: 0
+  dood: {fileID: 21300000, guid: 040de46ec443e8d4c9f481a5dfd31041, type: 3}
+  doodhurt1: {fileID: 21300000, guid: 4826503cb701dbf48bfb4eb9bca4d08b, type: 3}
+  doodhurt2: {fileID: 21300000, guid: bcbe074fde206e047812ebce54e0074b, type: 3}
 --- !u!1 &805579678
 GameObject:
   m_ObjectHideFlags: 0

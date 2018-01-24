@@ -8,6 +8,7 @@ using Vector3 = UnityEngine.Vector3;
 public class Player: MonoBehaviour
 {
     public float speed = 5f;
+ 
     private float movementX = 0f;
     private float movementY = 0f;
     private Rigidbody2D rb;
