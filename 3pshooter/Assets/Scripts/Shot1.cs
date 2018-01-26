@@ -11,7 +11,7 @@ public class Shot1 : MonoBehaviour
     public float range =50f;
     public float damage = 10f;
 
-	void Start ()
+    void Start ()
 	{
         GetComponent<LineRenderer>();
 	}
