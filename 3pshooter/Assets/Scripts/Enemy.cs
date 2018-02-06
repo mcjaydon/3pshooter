@@ -10,6 +10,10 @@ public class Enemy : MonoBehaviour {
     public Sprite doodhurt1;
     public Sprite doodhurt2;
     private SpriteRenderer spriteRenderer;
+    public int turnSpeed = 5;
+    public Transform GunEnd;
+    public Transform aimer;
+    public Transform BadGuy;
     public void TakeDamage(float ammount)
     {
         health -= ammount;
@@ -31,6 +35,7 @@ public class Enemy : MonoBehaviour {
         }
 
     }
+
 	void Start ()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -49,11 +54,26 @@ public class Enemy : MonoBehaviour {
         {
             spriteRenderer.sprite = doodhurt2;
         }
+		    transform.Rotate(Vector3.forward * turnSpeed * Time.deltaTime);
+		    RaycastHit2D hit = Physics2D.Raycast(GunEnd.transform.position, aimer.position - GunEnd.position);
+		    if (hit.collider != null)
+		    {
+                //Debug.Log("whoopdidoo " + hit.collider.gameObject.tag);
+		
+   
+		    }
+		    if (hit.collider.gameObject.tag == "Player")
+		    {
+		        Player player = hit.transform.GetComponent<Player>();
+		        player.Lose();
+
+		    }
+
     }
 
     private void Die ()
     {
-        Destroy(gameObject);
+       Destroy(gameObject);
     }
 
 }

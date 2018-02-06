@@ -1,5 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Assertions.Comparers;
 using UnityEngine.UI;
@@ -35,6 +38,13 @@ public class Player: MonoBehaviour
         }
 
 
+
+
+	}
+
+   public void Lose()
+    {
+        Destroy(gameObject);
     }
 }
     
