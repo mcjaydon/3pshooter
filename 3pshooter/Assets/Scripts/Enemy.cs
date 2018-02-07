@@ -13,7 +13,9 @@ public class Enemy : MonoBehaviour {
     public int turnSpeed = 5;
     public Transform GunEnd;
     public Transform aimer;
-    public Transform BadGuy;
+    public WaitForSeconds fireRate = new WaitForSeconds(0.07f);
+    public LineRenderer LaserLine;
+ 
     public void TakeDamage(float ammount)
     {
         health -= ammount;
@@ -41,7 +43,7 @@ public class Enemy : MonoBehaviour {
         spriteRenderer = GetComponent<SpriteRenderer>();
 		
 	}
-		void Update () {
+    void Update () {
         if (enemyHits == 0)
         {
             spriteRenderer.sprite = dood;
@@ -55,19 +57,26 @@ public class Enemy : MonoBehaviour {
             spriteRenderer.sprite = doodhurt2;
         }
 		    transform.Rotate(Vector3.forward * turnSpeed * Time.deltaTime);
+            
 		    RaycastHit2D hit = Physics2D.Raycast(GunEnd.transform.position, aimer.position - GunEnd.position);
+        Vector2 endOfLaserLine = hit.point;
 		    if (hit.collider != null)
 		    {
-                //Debug.Log("whoopdidoo " + hit.collider.gameObject.tag);
-		
-   
-		    }
-		    if (hit.collider.gameObject.tag == "Player")
-		    {
-		        Player player = hit.transform.GetComponent<Player>();
-		        player.Lose();
+		       
+		        if (hit.collider.gameObject.tag == "Player")
+		        {
+		            Player player = hit.transform.GetComponent<Player>();
+		            player.Lose();
+		           StartCoroutine(EnemyLaser(hit.point)); 
+		            LaserLine.SetPosition(0, GunEnd.position);
+		            LaserLine.SetPosition(1, endOfLaserLine);
 
-		    }
+
+            }
+		        
+
+        }
+
 
     }
 
@@ -75,5 +84,14 @@ public class Enemy : MonoBehaviour {
     {
        Destroy(gameObject);
     }
+
+    public IEnumerator EnemyLaser(Vector2 hitPoint)
+    {
+        LaserLine.enabled = true;
+        yield return fireRate;
+        LaserLine.enabled = false;
+
+    }
+    
 
 }
