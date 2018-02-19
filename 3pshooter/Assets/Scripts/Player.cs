@@ -7,11 +7,12 @@ using UnityEngine;
 using UnityEngine.Assertions.Comparers;
 using UnityEngine.UI;
 using Vector3 = UnityEngine.Vector3;
+using UnityEngine.SceneManagement;
 
 public class Player: MonoBehaviour
 {
     public float speed = 5f;
- 
+    public Text loseText;
     private float movementX = 0f;
     private float movementY = 0f;
     private Rigidbody2D rb;
@@ -20,6 +21,7 @@ public class Player: MonoBehaviour
 	void Start ()
 	{
 	    rb = GetComponent<Rigidbody2D>();
+	    loseText.text = "";
 	}
 	
 	// Update is called once per frame
@@ -38,13 +40,16 @@ public class Player: MonoBehaviour
         }
 
 
+    }
 
 
-	}
-
-   public void Lose()
+    public void Lose()
     {
         Destroy(gameObject);
+        loseText.text = "You Lost!";
+        
     }
+
+
 }
     

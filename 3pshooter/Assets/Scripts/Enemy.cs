@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Enemy : MonoBehaviour {
 
@@ -15,6 +17,8 @@ public class Enemy : MonoBehaviour {
     public Transform aimer;
     public WaitForSeconds fireRate = new WaitForSeconds(0.07f);
     public LineRenderer LaserLine;
+    public Text WinText;
+    public Text NextLevelText;
  
     public void TakeDamage(float ammount)
     {
@@ -41,8 +45,9 @@ public class Enemy : MonoBehaviour {
 	void Start ()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-		
-	}
+        WinText.text = "";
+
+    }
     void Update () {
         if (enemyHits == 0)
         {
@@ -74,7 +79,7 @@ public class Enemy : MonoBehaviour {
 
             }
 		        
-
+                
         }
 
 
@@ -83,6 +88,9 @@ public class Enemy : MonoBehaviour {
     private void Die ()
     {
        Destroy(gameObject);
+        WinText.text = "You Won!";
+        NextLevelText.text = "Next Level -->";
+
     }
 
     public IEnumerator EnemyLaser(Vector2 hitPoint)
@@ -92,6 +100,8 @@ public class Enemy : MonoBehaviour {
         LaserLine.enabled = false;
 
     }
-    
+
+
+
 
 }
